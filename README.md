@@ -50,4 +50,4 @@ Clone the repository and navigate to the project folder you want to run:
 
 ```bash
 git clone https://github.com/thatomoreti/Projects.git
-cd python-side-projects/<project-folder>
+cd Projects/<project-folder>
