@@ -33,8 +33,7 @@ def remove_task():
     data = request.json
     
     index.delete_task(
-        name=data['name'],heading=data['heading'],
-        worker_id=data['worker_id']
+        creator_id=data['creator_id'],task_id=data['task_id']
     )
     
     return ("Task is successfully deleted", 204)

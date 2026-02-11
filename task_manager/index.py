@@ -4,6 +4,9 @@ def get_connection():
     return sqlite3.connect('task_manager.db')
 
 
+def name_query():
+    return non
+
 #Admin function
 def create_user(name,s_name,u_type):
     connection =get_connection()
@@ -54,42 +57,32 @@ def create_task(name,heading,description,status, type,creator_id,worker_id):
                 print("Only Admins can create tasks")
                 connection.close()
                 
-def delete_task(name,heading,worker_id):
+def delete_task(creator_id,task_id):
     connection = get_connection()
     cursor = connection.cursor()
     
-    name_query = ('''SELECT * FROM user WHERE name = ? ;''')
+    task_query = ('''SELECT * FROM task WHERE task_id = ? AND creator_id = ?;''')
     
-    cursor.execute(name_query,(name,))
-    name_r=cursor.fetchone()
+    cursor.execute(task_query,(task_id,creator_id))
+    task_r=cursor.fetchone()
     
-    if name_r is None:
-        print("You're not in the db")
+    if task_r is None:
+        print("No task belonging to neither Task ID and Creator")
         connection.close()
         
         
     else:
-        if name_r[3] == 'Admin':
-            task_query = ('''SELECT * FROM task WHERE heading = ? AND  worker_id = ?;''')
-            
-            cursor.execute(task_query,(heading,worker_id))
-            task_r=cursor.fetchone()
-            
-            if task_r is None:
-                print("Task doesn't exist")
-                connection.close()
-                
-            else:
-                task_deletion = '''DELETE FROM task WHERE heading =? AND worker_id = ?;'''
+ 
+        task_deletion = '''DELETE FROM task WHERE task_id = ?;'''
 
-                cursor.execute(task_deletion,(heading,worker_id))
-
-                connection.commit()
-                connection.close()
-        else:
-            print("Only Admins can delete Tasks")
-            connection.close()
-        
+        cursor.execute(task_deletion,(task_id))
+        connection.commit()
+        connection.close()
+# def task_query(cursor,task_id,creator_id):
+#        task_query = ('''SELECT * FROM task WHERE task_id = ? AND creator_id = ?;''')
+#        cursor.execute(task_query,(task_id,creator_id))
+#        task_r=cursor.fetchone()
+ 
 def edit_task(u_id,heading, description):
     connection = get_connection()
     cursor = connection.cursor()
