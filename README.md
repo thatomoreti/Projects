@@ -45,7 +45,7 @@ Many projects are evolving, and there’s more to come — including full-stack 
 - Focused on backend architecture and database integration.  
 - **Current progress:**
   - Flask project setup
-  - Successful connection to :contentReference[oaicite:0]{index=0} (MSSQL)
+  - Successful connection to `MSSQL` database
   - Configured `pyodbc` driver
   - Database connectivity testing
 - **Next steps:**

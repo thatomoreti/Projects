@@ -13,7 +13,7 @@ class User(Base):
      User_ID = Column(Integer, primary_key=True)
      Username = Column(String, nullable = False , unique = True)
      Email = Column(String, nullable = False , unique = True)
-     Password_Hashed = Column(String , nullable = False )  
+     Password_Hash = Column(String , nullable = False )  
      role = Column(String, nullable = False , default = 'user')
      Created_At = Column(DateTime, default=datetime.now)   
      
@@ -25,11 +25,12 @@ class Post(Base):
      
      #Model Attributes
      Post_ID = Column(Integer, primary_key= True)
-     User_ID = Column(Integer , ForeignKey = "Users.User_ID", nullable = False)
+     User_ID = Column(Integer , ForeignKey ("Users.User_ID"), nullable = False)
      Title = Column(String, nullable= False)
      Content = Column(String , nullable=False)
      Created_At = Column(DateTime, default=datetime.now) 
-     Updated_At = Column(DateTime, default=datetime.now) 
+     Updated_At = Column(DateTime, default=datetime.now, onupdate=datetime.now) 
      
      #Specifying the relationship a user has to a post and that is one of an author and without a user a post cannot exist
      author = relationship("User", back_populates="posts")
+     
