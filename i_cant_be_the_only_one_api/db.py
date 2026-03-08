@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine #library to connect python with mssql
-from sqlalchemy.orm import sessionmaker # library to create sessions/the session factory to allow for the creation of sessions in other files
+from sqlalchemy.orm import sessionmaker, Session # library to create sessions/the session factory to allow for the creation of sessions in other files
 from dotenv import load_dotenv  # library to allow the use of env file
 import os  #Importing the operating system of the computer to allow me to be able to read the env file
 
@@ -24,3 +24,13 @@ SessionLocal = sessionmaker(bind=engine)
 #Testing the created connection to the db
 with engine.connect() as connection:
     print("DB connected!")
+    
+#Function to provide database session obj to FASTAPI routes-->Dependency function
+def get_db():
+    db: Session = SessionLocal()
+    
+    try:
+        yield  db #Give db obj to routes 
+    finally:
+        #close db connection
+        db.close()
