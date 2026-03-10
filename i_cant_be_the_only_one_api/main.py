@@ -1,20 +1,21 @@
-from db import SessionLocal
-from functions import add_user
+from fastapi import FastAPI
+from Routers import users, posts, login
+from models import Base
+from db import engine
 
-session = SessionLocal()
+#Instantiate FastAPI program/app
+app = FastAPI()
 
-try:
-    user = add_user(
-        db=session,
-        username="jacob",
-        email="jacob@email.com",
-        password_hashed="jacob's conundrum"
-    )
+#Creating the db models
+Base.metadata.create_all(bind=engine)
 
-    print("User created:", user.Username)
+#Include all routers/ incorporate
+app.include_router(users.router)
+app.include_router(posts.router)
+app.include_router(login.router)
 
-except ValueError as e:
-    print("Error:", e)
 
-finally:
-    session.close()
+#Know when API is running
+@app.get("/")
+def root():
+    return {"message": "API is up and  running!"}

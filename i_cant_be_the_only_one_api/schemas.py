@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr # importing basemodel as the main schema class most of the schemas are going to inherit from and the EmailStr class is for email validation 
+from pydantic import BaseModel, EmailStr # importing base model as the main schema class most of the schemas are going to inherit from and the EmailStr class is for email validation 
 from typing import Optional, List # Optional class is to make it so that a field can be optional
 from datetime import datetime # For timestamps 
 
@@ -54,3 +54,14 @@ class ReturnPost(BaseModel):
 #Schema returning a list of posts
 class ReturnPosts(BaseModel):
     posts : List[ReturnPost]
+    
+#Schema for authentication/login
+class LoginSchema(BaseModel):
+    Email : EmailStr
+    Password : str
+    
+#Schema for the token response (response in a form of a response )
+class Token(BaseModel):
+    access_token : str
+    token_type : str
+    

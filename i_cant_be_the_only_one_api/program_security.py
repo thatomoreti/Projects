@@ -14,12 +14,12 @@ SECRET_KEY=os.getenv("SECRET_KEY")
 #Declare Cryptcontext obj
 password_context  = CryptContext(
     #Choosing which hashing method to use
-    schemes=["bycrypt"],
+    schemes=["bcrypt"],
     
     #Setting for the auto marking of old hashes as deprecated
     deprecated ="auto"
 )
-#function meant to hash passwords 
+#function meant to hash passwor
 def password_hash(password : str)-> str:
     #returns a hashed version of a password
     return password_context.hash(password)
