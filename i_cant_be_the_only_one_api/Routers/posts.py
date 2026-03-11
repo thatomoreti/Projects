@@ -18,13 +18,13 @@ def post_creation(post : CreatePost, db: Session = Depends(get_db)):
     return new_post
 
 # Route to list all posts
-@router.get("/", response_model=list[ReturnPosts])
+@router.get("/", response_model=list[ReturnPost])
 #Endpoint for listing all posts in the db
 def list_posts(db: Session = Depends(get_db)):
     return post_list_all(db)
 
 #Route for listing a post by user id within the database
-@router.get("/{post_id}", response_model=ReturnPost)
+@router.get("/{user_id}/{post_id}", response_model=ReturnPost)
 #Endpoint for returning a list of users
 def get_post_by_id(post_id: int,user_id = int , db : Session = Depends(get_db)):
     post = find_post_by_id(db,user_id,post_id)

@@ -1,5 +1,6 @@
 from models import User,Post
 from sqlalchemy.orm import Session
+from program_security import password_hash
 
 #Function that finds a user based on their email
 def find_user_by_email(db: Session,email: str):
@@ -14,12 +15,14 @@ def user_list_all(db: Session):
     return db.query(User).all()
 
 #Function that creates a user within the database
-def add_user(db:Session,username:str,email:str,password_hashed:str,role: str="user"):
+def add_user(db:Session,username:str,email:str,password:str,role: str="user"):
     #Check for duplicate users/email
     user = find_user_by_email(db,email)
     if user :
         raise ValueError("The email is already registered.")
-    new_user = User(Username = username,Email = email,Password_Hash = password_hashed,role = role)
+    password_hashed=password_hash(password)
+    
+    new_user = User(Username = username,Email = email,Password_Hash = password_hashed ,role = role)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)

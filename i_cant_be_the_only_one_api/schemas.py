@@ -35,14 +35,15 @@ class ReturnUsers(BaseModel):
 #Schema for the creation of posts
 class CreatePost(BaseModel):
     #Schema validates all post data inputs needed for creating a post
+    User_ID : int
     Title : str
     Content : str
     
 #Schema to return the post that has been just created 
 class ReturnPost(BaseModel):
     #Schema is selective of which functions are relevant to the client
-    Post_ID : str
-    User_ID : str
+    Post_ID : int
+    User_ID : int
     Title:str
     Content : str
     Created_At : datetime

@@ -15,7 +15,7 @@ def user_creation(user: CreateUser, db: Session = Depends(get_db)):
         new_user = add_user(db,
                                     username=user.Username,
                                     email= user.Email,
-                                    password_hashed=user.Password_Hash)
+                                    password=user.Password_Hash)
         return new_user
     except ValueError as error:
         #If there's a duplicate email
