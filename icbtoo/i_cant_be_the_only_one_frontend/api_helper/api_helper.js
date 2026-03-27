@@ -55,19 +55,29 @@ const resultant = response.json()
 return resultant
 };
 
+//Function for testing the status of the api connection (if its connected or not connected)
+
 export async function apiConnectionCheck() {
+    //Using a try catch to allow for the opposite of a connection to take place w/o crashing the entire program
     try{
-        console.log("Backend connection testing...");
+        //A log to show the beginning of testing prior to fetch the backend url
+        console.log("Backend connection testing....");
+
+        //Creating a  obj/ var responsible for fetching metadata for the api response , usually used for checking the status of the response 
         const api_response = await fetch(API_URL);
 
+        //Assigning or extracting data from metadata regarding api request, usually used for taking the needed data from the response
         const data = await api_response.json()
 
+        //Log for successful connection
         console.log("Successful Connection !")
 
+        //Log for showing data received from the request
         console.log("API response",data)
 
         return true
     }
+    //error handling at its finest 
     catch(error){
 
         console.error("Backend not connected")
